@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if items %}
+        {% for item in items %}
+            <h2> {{ item.name }} </h2>
+            <img src="{{ url_for('static', filename='/images/'+item.image_file) }}" alt={{ item.name }} width="30%"/>
+            <p><strong>Крепость:</strong> {{ item.strong }}</p>
+            <p><strong>Описание:</strong> {{ item.description }} </p>
+            <p><strong>Основные ингредиенты</strong></p>
+            <table style="margin: auto;text-align: center">
+                <tbody>
+                    {% for ingredient in item.general_ingredients %}
+                        <tr style="width: auto"> <td> {{ ingredient }} </td> </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if item.additional_ingredients %}
+                <p><strong>Дополнительные ингредиенты</strong></p>
+                <table style="margin: auto;text-align: center">
+                    <tbody>
+                        {% for ingredient in item.additional_ingredients %}
+                            <tr style="width: auto"> <td> {{ ingredient }} </td> </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+            {% if item.comment %}
+                <p><strong>Комментарий</strong></p>
+                <p> {{ item.comment }} </p>
+            {% endif %}
+            <br>
+        {% endfor %}
+    {% else %}
+        <h3> Bar is empty :( </h3>
+    {% endif %}
+{% endblock %}
