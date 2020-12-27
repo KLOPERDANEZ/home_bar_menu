@@ -1,10 +1,22 @@
 {% extends "base.html" %}
 
+{% block menu %}
+    <div id="menu">
+        {% if items %}
+            <p> Напитки: </p>
+            {% for item in items %}
+                <a href="#{{ item.id }}">{{ item.name  }}</a>
+                <br>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
 {% block content %}
     {% if items %}
         {% for item in items %}
-            <h2> {{ item.name }} </h2>
-            <img src="{{ url_for('static', filename='/images/'+item.image_file) }}" alt={{ item.name }} width="30%"/>
+            <h2 id="{{ item.id }}"> {{ item.name }} </h2>
+            <img src="{{ url_for('get_image', pid=item.image_file) }}" alt={{ item.name }} width="30%"/>
             <p><strong>Крепость:</strong> {{ item.strong }}</p>
             <p><strong>Описание:</strong> {{ item.description }} </p>
             <p><strong>Основные ингредиенты</strong></p>
